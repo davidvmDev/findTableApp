@@ -1,34 +1,261 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Find Your Table</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        input { padding: 10px; width: 300px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; }
-        p { font-size: 18px; font-weight: bold; }
+      body {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         margin: 0;
+         background-image: url('https://media-api.xogrp.com/images/6859029a-0250-49f0-9c0f-bdaf68f78c7b~rt_auto-rs_1024.h?ordering=explicit');
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed; /* Makes the background stay fixed when scrolling */
+         height: 100vh; /* Ensures the body takes the full viewport height */
+         color: #fff;
+         overflow-y: hidden; /* Prevents layout shift due to scrollbar */
+      }
+      .container {
+            min-height: 100vh; /* Ensures the container div takes at least the full height of the viewport */
+            flex-direction: column;
+            justify-content: center; /* Centers the content vertically */
+            align-items: center; /* Centers the content horizontally */
+            padding: 20px;
+            display: flex;
+      }
+      input {
+         padding: 10px;
+         width: 300px;
+         font-size: 16px;
+         margin-top: 20px;
+      }
+      button {
+         padding: 10px 20px;
+         font-size: 16px;
+         margin-top: 10px;
+      }
+      p {
+         font-size: 18px;
+         font-weight: bold;
+         margin-top: 20px;
+      }
+      .css-1wmtcsd {
+         line-height: 1;
+         font-family: EB Garamond;
+         color: #414042;
+         font-size: 40px;
+         font-weight: 500;
+         text-transform: uppercase;
+         letter-spacing: 6px;
+         padding-bottom: 15px;
+      }
+      .css-1ipozcr {
+         line-height: 1;
+         margin: 16px auto;
+         font-family: EB Garamond;
+         color: #414042;
+         font-size: 38px;
+         font-weight: 500;
+         text-transform: uppercase;
+         letter-spacing: 6px;
+         padding-top: 120px;
+         padding-bottom: 10px;
+      }
+      .css-af79pc {
+         line-height: 1;
+         margin: 8px 0;
+         font-family: EB Garamond;
+         letter-spacing: 2px;
+         color: #414042;
+         font-size: 19px;
+         font-weight: 500;
+         text-transform: uppercase;
+      }
+      .css-findTable {
+         line-height: 1;
+         margin: 8px 0;
+         font-family: EB Garamond;
+         letter-spacing: 2px;
+         color: #414042;
+         font-size: 15px;
+         font-weight: 300;
+         text-transform: uppercase;
+      }
+      #nameList {
+         list-style-type: none;
+         padding: 0;
+         width: 300px;
+         margin: 0 auto;
+         border: 1px solid #ccc;
+         max-height: 150px;
+         overflow-y: auto;
+         background: rgba(255, 255, 255, 0.9);
+         display: none;
+         position: absolute; /* Absolute positioning */
+         left: 50%;
+         transform: translateX(-50%); /* Center the dropdown below the input */
+         z-index: 1000; /* Ensure it appears above other content */
+      }
+      #nameList li {
+         padding: 8px;
+         cursor: pointer;
+         color: #333;
+      }
+      #nameList li:hover {
+         background: #e9e9e9;
+      }
+      .input-group {
+         display: inline-block; /* Keep the input and button in the same line */
+         position: relative; /* Necessary for the absolute positioning of #nameList */
+      }
+      .button-group {
+         display: inline;
+         position: relative;
+      }
     </style>
 </head>
 <body>
-    <h1>Find Your Table</h1>
-    <input type="text" id="guestName" placeholder="Enter your name">
-    <button onclick="findTable()">Find Table</button>
-    <p id="result"></p>
-
+    <div class="container">
+        <header class="css-1ipozcr">
+            <h1 class="css-1wmtcsd">
+               Janis &amp; Verónica
+            </h1>
+            <div class="css-af79pc">August 24, 2024 • Bad Homburg, Alemania</div>
+        </header>
+        <title class="css-findTable">Ihren Tisch finden</title>
+        <h1 class="css-findTable">Ihren Tisch finden</h1>
+        <div class="button-group">
+            <div class="input-group">
+               <input type="text" id="guestName" placeholder="Ihren Namen eingeben" onkeyup="showSuggestions(this.value)">
+               <ul id="nameList"></ul>
+         </div>
+        <button onclick="findTable()">Tisch finden</button>
+        </div>
+        <p class="css-findTable" id="result"></p>
+    </div>
     <script>
         const guests = {
-            "John Doe": 5,
-            "Jane Smith": 3,
-            "Mike Johnson": 7,
-            // Add more guests here
+            "Verónica": 1,
+            "Janis": 1,
+            "Chris": 1,
+            "Johanna": 1,
+            "Elli": 1,
+            "Matthäus": 1,
+            "Ben": 1,
+            "David V.": 1,
+            "Alena": 1,
+            "Manuel": 1,
+            "Carlos Mario": 2,
+            "Margarita": 2,
+            "Armin": 2,
+            "Claudia U.": 2,
+            "Karin": 2,
+            "Walter": 2,
+            "Markus": 2,
+            "Claudia W.": 2,
+            "Gerlinde": 2,
+            "Jürgen": 2,
+            "Claudia": 3,
+            "Rainer": 3,
+            "Alix": 3,
+            "Hannah": 3,
+            "Gerd": 3,
+            "Almut": 3,
+            "Andreas": 3,
+            "Petra": 3,
+            "Ludger": 3,
+            "Norina": 4,
+            "Jo": 4,
+            "Tjorm": 4,
+            "Aniska": 4,
+            "Burt": 4,
+            "Sophie": 4,
+            "Jan": 4,
+            "Felix": 4,
+            "Lisa": 4,
+            "Yasmin": 5,
+            "Alex": 5,
+            "Whitney": 5,
+            "Benny": 5,
+            "Janice": 5,
+            "Alessio": 5,
+            "Carolina": 6,
+            "Santiago": 6,
+            "Ruth": 6,
+            "Robert": 6,
+            "Sirli": 6,
+            "Konni": 6,
+            "Inês": 6,
+            "David C.": 7,
+            "Angie": 7,
+            "Marcela": 7,
+            "André": 7,
+            "Janine": 7,
+            "Javier": 7,
+            "Laura": 7,
+            "Andrea": 7,
+            "Diego": 7,
+            "Steffen": 8,
+            "Kathleen": 8,
+            "Sandra": 8,
+            "Philipp": 8,
+            "Vivien": 8,
+            "Jessica": 8,
+            "Pauline": 8,
+            "Luis": 8,
+            "Vici": 8,
+            "Mayana": 8,
+            "Jannik": 9,
+            "Luca": 9,
+            "Fabi R.": 9,
+            "Fabi B.": 9,
+            "Tobi": 9,
+            "Daniel": 9,
+            "Marcel": 9
         };
+
+        function showSuggestions(value) {
+            const nameList = document.getElementById("nameList");
+            nameList.innerHTML = '';
+            const input = value.toLowerCase();
+
+            if (input) {
+                const filteredNames = Object.keys(guests).filter(name => name.toLowerCase().includes(input));
+
+                if (filteredNames.length > 0) {
+                    filteredNames.forEach(name => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = name;
+                        listItem.onclick = function () {
+                            document.getElementById("guestName").value = name;
+                            nameList.style.display = 'none';
+                        };
+                        nameList.appendChild(listItem);
+                    });
+                    nameList.style.display = 'block';
+                } else {
+                    nameList.style.display = 'none';
+                }
+            } else {
+                nameList.style.display = 'none';
+            }
+        }
 
         function findTable() {
             const name = document.getElementById("guestName").value;
             const tableNumber = guests[name];
-            const result = tableNumber ? `Your table number is: ${tableNumber}` : "Name not found. Please check your entry.";
+            const result = tableNumber ? `Ihre Tischnummer ist: ${tableNumber}` : "Name not found. Please check your entry.";
             document.getElementById("result").innerText = result;
         }
+
+        document.addEventListener('click', function (event) {
+            const nameList = document.getElementById("nameList");
+            if (event.target.id !== 'guestName') {
+                nameList.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
